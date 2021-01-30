@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "cli-confirm"
-version = "1.0.0"
+version = "1.0.0rc1"
 description = "CLI utility to confirm yes/no."
 license = "MIT"
 authors = ["Takahiro Ueda <takahiro.ueda@yahoo.com>"]
