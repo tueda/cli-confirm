@@ -1,6 +1,9 @@
 cli-confirm
 ===========
 
+[![Test](https://github.com/tueda/cli-confirm/workflows/CI/badge.svg?branch=master)](https://github.com/tueda/cli-confirm/actions?query=branch:master)
+[![PyPI version](https://badge.fury.io/py/cli-confirm.svg)](https://pypi.org/project/cli-confirm/)
+
 A CLI utility to confirm yes/no.
 
 
