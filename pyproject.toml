@@ -16,14 +16,16 @@ packages = [
 ]
 
 [tool.poetry.dependencies]
-python = "~2.7 || ^3.5"
+python = "~2.7 || ^3.4"
+
 click = "^7.0"
 
 [tool.poetry.dev-dependencies]
+pytest = "^4.1"
+pytest-cov = "^2.5"
+
 pre-commit = { version = "^2.10.0", python = "^3.6.1" }
-pytest = { version = "^6.2.2", python = "^3.6.0" }
-pytest-cov = { version = "^2.11.1", python = "^3.6.0" }
-taskipy = { version = "^1.6.0", python = "^3.6.0" }
+taskipy = { version = "^1.6.0", python = "^3.6" }
 
 [tool.poetry.scripts]
 confirm = "confirm.__main__:main"
@@ -32,25 +34,8 @@ confirm = "confirm.__main__:main"
 requires = ["poetry-core>=1.0.0"]
 build-backend = "poetry.core.masonry.api"
 
-[tool.coverage.report]
-exclude_lines = [
-    "@overload",
-    "if TYPE_CHECKING:",
-    "pragma: no cover",
-    "raise AssertionError()",
-    "return NotImplemented",
-]
-
 [tool.isort]
 profile = "black"
-
-[tool.pytest.ini_options]
-addopts = [
-    "--cov-report=html",
-    "--cov-report=term",
-    "--cov=confirm",
-    "--doctest-modules",
-]
 
 [tool.taskipy.tasks]
 # Set up a development environment.
