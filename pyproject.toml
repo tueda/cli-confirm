@@ -6,7 +6,7 @@ license = "MIT"
 authors = ["Takahiro Ueda <takahiro.ueda@yahoo.com>"]
 readme = "README.md"
 repository = "https://github.com/tueda/cli-confirm"
-keywords = ["console", "cli", "confirmation"]
+keywords = ["console", "confirmation"]
 classifiers = [
     "Development Status :: 5 - Production/Stable",
     "Environment :: Console",
