@@ -1,0 +1,78 @@
+name: CI
+
+on:
+  push:
+  pull_request:
+  schedule:
+    - cron: 0 0 1 * * # monthly
+
+jobs:
+  gitlint:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout the repository
+        uses: actions/checkout@v2
+
+      - name: Set up Python
+        uses: actions/setup-python@v2
+
+      - name: Install dependencies
+        run: pip install gitlint
+
+      - name: Run gitlint
+        run: gitlint
+
+  pre-commit:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout the repository
+        uses: actions/checkout@v2
+
+      - name: Set up Python
+        uses: actions/setup-python@v2
+
+      - name: Run pre-commit
+        uses: pre-commit/action@v2.0.0
+
+  test:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        python-version: [2.7, 3.4, 3.5, 3.6, 3.7, 3.8, 3.9]
+    steps:
+      - name: Checkout the repository
+        uses: actions/checkout@v2
+
+      - name: Set up Python
+        uses: actions/setup-python@v2
+
+      - name: Cache for pip
+        uses: actions/cache@v2
+        with:
+          path: ~/.cache/pip
+          key: ${{ runner.os }}-pip-${{ matrix.python-version }}-${{ hashFiles('**/requirements.txt', '**/pyproject.toml') }}
+          restore-keys: |
+            ${{ runner.os }}-pip-${{ matrix.python-version }}-
+            ${{ runner.os }}-pip-
+
+      - name: Install Poetry
+        run: pip install poetry
+
+      - name: Get Poetry path
+        id: poetry-path
+        run: echo "::set-output name=path::$(command -v poetry)"
+
+      - name: Set Python version
+        uses: actions/setup-python@v2
+        with:
+          python-version: ${{ matrix.python-version }}
+
+      - name: Set Poetry env
+        run: ${{ steps.poetry-path.outputs.path }} env use ${{ matrix.python-version }}
+
+      - name: Install dependencies
+        run: ${{ steps.poetry-path.outputs.path }} install
+
+      - name: Run pytest
+        run: ${{ steps.poetry-path.outputs.path }} run pytest
