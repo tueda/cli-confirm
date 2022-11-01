@@ -57,7 +57,7 @@ jobs:
             ${{ runner.os }}-pip-
 
       - name: Install Poetry
-        run: pip install poetry
+        run: pip install poetry==1.1.15
 
       - name: Get Poetry path
         id: poetry-path
